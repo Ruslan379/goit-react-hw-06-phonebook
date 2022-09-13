@@ -18,8 +18,8 @@ import { myAction, myAction_2 } from 'redux/actions'; //?
 console.log("store:", store); //?
 console.log("store.getState():", store.getState()); // { a: 15 }
 // console.log("store.dispatch(myAction):", store.dispatch(myAction));
-store.dispatch(myAction(5));
-store.dispatch(myAction(10));
+// store.dispatch(myAction(5));
+store.dispatch(myAction("Mango"));
 store.dispatch(myAction_2);
 
 //? +++++++++++++++++++++++++++++++++++++++

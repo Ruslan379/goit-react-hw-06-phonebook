@@ -1,3 +1,6 @@
+// import { useSelector } from "react-redux"; //? +++
+import { useDispatch } from "react-redux"; //? +++
+
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
@@ -21,7 +24,27 @@ export const ContactForm = ({ onSubmit }) => {
   
 
 // * +++++++++++++++++++++++++++ МЕТОДЫ ++++++++++++++++++++++++++++++++++
-  //! Ввод значений в поля инпутов
+  //? ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  const addName = name => ({
+  type: "ADD_NAME",
+  payload: name,
+  });
+  console.log(addName); //!
+
+  const addValue = value => ({
+  type: "ADD_VALUE",
+  payload: value,
+  });
+  console.log(addValue); //!
+
+  const dispatch = useDispatch();
+  console.log(dispatch); //!
+
+
+   //? ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  
+  
+   //! Ввод значений в поля инпутов
   const handleChange = event => {
     const { name, value } = event.currentTarget;
 
