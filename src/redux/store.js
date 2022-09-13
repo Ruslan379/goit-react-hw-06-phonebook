@@ -3,7 +3,7 @@ import { createStore, } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 // import actions from 'redux/actions';
-// import { myAction } from 'redux/actions'; //?
+// import { A } from 'redux/actions'; //?
 
 import { nanoid } from 'nanoid';
 
@@ -24,16 +24,17 @@ const myInitialState = {
 console.log("myInitialState:", myInitialState);
 
 
-const reducer = (state = myInitialState, myAction) => {
-    console.log("Лог action в reducer:", myAction.type, myAction.payload);
-    switch (myAction.type) {
-        case myAction.type:
-            console.log("Лог-IN action в reducer:", myAction.type, myAction.payload);
-            state.contacts.items[0].name = myAction.payload;
+const reducer = (state = myInitialState, { type, payload }) => {
+    console.log("Лог action в reducer:", type, payload);
+    switch (type) {
+        case "MY_ACTION":
+            console.log("Лог-IN action в reducer:", type, payload);
+            state.contacts.items[0].name = payload.name;
+            state.contacts.items[0].number = payload.number;
             return state;
         //! ???? ТАК НЕ РАБОТАЕТ
-        // return { ...state, contacts: { ...state.contacts, items: [...state.contacts.items, [...state.contacts.items[0], (items[0].name = myAction.payload)],] } }
-
+        // return { ...state, contacts: { ...state.contacts, items: [...state.contacts.items, [...state.contacts.items[0], (items[0].name = A.payload)],] } }
+        //! ???? ТАК НЕ РАБОТАЕТ
         // return {
         //     ...state,
         //     contacts: {...state.contacts, state.contacts.items[0].name = payload}
@@ -41,7 +42,7 @@ const reducer = (state = myInitialState, myAction) => {
 
 
         default:
-            console.log("Лог-default action в reducer:", myAction.type, myAction.payload);
+            console.log("Лог-default action в reducer:", type, payload);
             return state;
     }
 };
@@ -51,5 +52,6 @@ const reducer = (state = myInitialState, myAction) => {
 
 const store = createStore(reducer, composeWithDevTools());
 console.log("myInitialState:", myInitialState);
+// console.log("state:", state); //  'state' is not defined  no-undef
 
 export default store;

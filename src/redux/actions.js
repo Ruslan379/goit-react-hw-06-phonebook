@@ -1,7 +1,7 @@
 //! динамика
-export const myAction = value => ({
+export const myAction = (name, number) => ({
     type: "MY_ACTION",
-    payload: value,
+    payload: { name, number },
 });
 
 
