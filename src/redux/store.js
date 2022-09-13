@@ -24,6 +24,15 @@ const myInitialState = {
 console.log("myInitialState:", myInitialState);
 
 
+//? +++++++++++++++++++++ rootReducer  +++++++++++++++++++++
+// const rootReducer = combineReducers({
+//     contacts: contactsReducer,
+//     filter: filterReducer,
+// });
+
+
+
+//? +++++++++++++++++++++ reducer  +++++++++++++++++++++
 const reducer = (state = myInitialState, { type, payload }) => {
     console.log("Лог action в reducer:", type, payload);
     switch (type) {
@@ -52,8 +61,21 @@ const reducer = (state = myInitialState, { type, payload }) => {
             return state;
     }
 };
-
 //? +++++++++++++++++++++
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 const store = createStore(reducer, composeWithDevTools());
