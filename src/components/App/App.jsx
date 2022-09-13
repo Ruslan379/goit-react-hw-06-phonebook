@@ -1,12 +1,14 @@
-// import { useSelector } from "react-redux"; //? +++
-// import { useDispatch } from "react-redux"; //? +++
+
+import { useDispatch, useSelector } from "react-redux"; //? +++
 
 import { useState } from 'react';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
+
+import store from 'redux/store'; //?
 
 import useLocalStorage from 'hooks/useLocalStorage';
 
@@ -32,20 +34,70 @@ export const App = () => {
 
 
   //! Добавление контакта в this.state.contacts
-  const addСontact = (name, number) => {
-    const contact = {
-      id: nanoid(),  
-      name,
-      number,
-    };
-    setContacts(prevState => 
-      [...prevState, contact]);
-  };
-
-
+  // const addСontact = (name, number) => {
+  //   const contact = {
+  //     id: nanoid(),
+  //     name,
+  //     number,
+  //   };
+  //   setContacts(prevState =>
+  //     [...prevState, contact]);
+  // };
 
   //! Принимаем пропсы (name, number) из ContactForm
   //! alert с предупреждением о наявности контакта
+  // const formSubmitHandler = (name, number) => {
+    
+  //   if (contacts.find(item => item.name.toLowerCase() === name.toLowerCase())) {
+  //     alert(`${name} is already in contacts.`);
+  //     toast.warning(`${name} уже есть в контактах.`);
+  //     return;
+  //   } else {
+  //     addСontact(name, number);
+  //     }
+  // };
+
+  //? ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  const dispatch = useDispatch();
+  // console.log(dispatch); //!
+  //? ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  console.log("App store.getState():", store.getState()); //!
+
+  //! Хук useSelector читает данные из state Redux-хранилища и подписывается на их обновление
+  const StateName = () => {
+  return useSelector(state => state.contacts.items[0].name);
+  };
+
+  const StateNumber = () => {
+  return useSelector(state => state.contacts.items[0].number);
+  };
+
+  console.log("StateName:", StateName()); //!
+  console.log("StateNumber:", StateNumber()); //!
+  //!_________________________________________________
+
+  //? +++++++++++++++++++++++++++++++++++++++
+  //?  Добавление контакта в addName и addNumber
+  const addName = (name) => ({
+      type: "ADD_NAME",
+      payload: name,
+    });
+    console.log("addName:", addName); //!
+
+    const addNumber = (number) => ({
+      type: "ADD_NUMBER",
+      payload: number,
+    });
+    console.log("addNumber:", addNumber); //!
+
+  //! динамика
+    // const myAction = (name, number) => ({
+    //   type: "MY_ACTION",
+    //   payload: { name, number },
+    // });
+
+  //? Принимаем пропсы (name, number) из ContactForm
+  //? alert с предупреждением о наявности контакта
   const formSubmitHandler = (name, number) => {
     
     if (contacts.find(item => item.name.toLowerCase() === name.toLowerCase())) {
@@ -53,7 +105,15 @@ export const App = () => {
       toast.warning(`${name} уже есть в контактах.`); 
       return;
     } else {
-      addСontact(name, number); 
+      // addName(name);
+      // addNumber(number);
+
+      // store.dispatch(addName); //! НЕ РАБОТАЕТ!!!
+      // store.dispatch(addNumber); ///! НЕ РАБОТАЕТ!!!
+      
+      console.log(name, number);
+      dispatch(addName(name));
+      dispatch(addNumber(number));
       }
   };
 

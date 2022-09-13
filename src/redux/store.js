@@ -27,10 +27,12 @@ console.log("myInitialState:", myInitialState);
 const reducer = (state = myInitialState, { type, payload }) => {
     console.log("Лог action в reducer:", type, payload);
     switch (type) {
-        case "MY_ACTION":
+        case "ADD_NAME":
             console.log("Лог-IN action в reducer:", type, payload);
-            state.contacts.items[0].name = payload.name;
-            state.contacts.items[0].number = payload.number;
+            // state.contacts.items[0].name = payload.name;
+            state.contacts.items[0].name = payload;
+
+            // state.contacts.items[0].number = payload.number;
             return state;
         //! ???? ТАК НЕ РАБОТАЕТ
         // return { ...state, contacts: { ...state.contacts, items: [...state.contacts.items, [...state.contacts.items[0], (items[0].name = A.payload)],] } }
@@ -39,7 +41,11 @@ const reducer = (state = myInitialState, { type, payload }) => {
         //     ...state,
         //     contacts: {...state.contacts, state.contacts.items[0].name = payload}
         // };
-
+        case "ADD_NUMBER":
+            console.log("Лог-IN action в reducer:", type, payload);
+            // state.contacts.items[0].name = payload.number;
+            state.contacts.items[0].number = payload;
+            return state;
 
         default:
             console.log("Лог-default action в reducer:", type, payload);
