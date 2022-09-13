@@ -96,18 +96,22 @@
 
 //! 3. Каждый раз обновляет localStorage при обновлении State,
 
+//! ???? ТАК НЕ РАБОТАЕТ
+
 //! useState ===> contacts (аналог this.state.contacts)
 
 //! useState ===> filter (аналог this.state.filter)
 
 //! useState ===> name (аналог this.state.name)
 
-//! Ввод значений в поля инпутов
-
 //! Используем Хук useLocalStorage (hooks/useLocalStorage):
-
-//! Очистка полей ФОРМЫ
 
 //! Передача значений State (name, number) в App
 
 //! Хук useLocalStorage:
+
+//! динамика
+
+//! запись значения из input-(Find contacts by name) в this.setState.filter
+
+//!_________________________________________________
