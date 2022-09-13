@@ -88,6 +88,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+//!
+
 //! 1. Хранит State,
 
 //! 2. Инициализирует State из localStorage при первом RENDER
@@ -100,7 +102,11 @@
 
 //! useState ===> name (аналог this.state.name)
 
+//! Ввод значений в поля инпутов
+
 //! Используем Хук useLocalStorage (hooks/useLocalStorage):
+
+//! Очистка полей ФОРМЫ
 
 //! Передача значений State (name, number) в App
 
