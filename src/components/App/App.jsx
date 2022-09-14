@@ -60,7 +60,7 @@ export const App = () => {
   //? ++++++++++++++++++++++++++++++++++++++++++++++++++++++
   const dispatch = useDispatch();
   // console.log(dispatch); //!
-  //? ++++++++++++++++++++ ВЕСЬ State & contacts, filter, +++++++++++++++++++++++++++
+  //? ++++++++++++++++++++ ВЕСЬ State & contacts, filter +++++++++++++++++++++++++++
   console.log("App ==> store.getState() ==> ВЕСЬ State:", store.getState()); //!
 
   //! Хук useSelector читает данные из state Redux-хранилища и подписывается на их обновление
@@ -84,13 +84,16 @@ export const App = () => {
       type: "ADD_Name&Number",
       payload: { name, number },
     });
-
+  
+  //! Действие (actions) для поиска по filter
     const changesFilter = (filter) => ({
       type: "CHANGES_Filter",
       payload: filter,
     });
   
-  const deletesTodo = (contactId) => ({
+  //! Действие (actions) для создание нового массива объектов 
+  //! из contacts с учетом значения поиска из filter
+    const deletesTodo = (contactId) => ({
       type: "DELETES_Todo",
       payload: contactId,
     });
@@ -99,16 +102,13 @@ export const App = () => {
   //? alert с предупреждением о наявности контакта
   //?  Добавление контакта в Действия (actions) ==> 
   const formSubmitHandler = (name, number) => {
-    
     if (contacts.find(item => item.name.toLowerCase() === name.toLowerCase())) {
-      alert(`${name} is already in contacts.`);
+      // alert(`${name} is already in contacts.`);
       toast.warning(`${name} уже есть в контактах.`); 
       return;
     } else {
- 
       // store.dispatch(addName); //! НЕ РАБОТАЕТ!!!
       // store.dispatch(addNumber); ///! НЕ РАБОТАЕТ!!!
-      
       console.log("name, number:", name, number); //!
       dispatch(addNameNumber(name, number));
       }
@@ -121,12 +121,11 @@ export const App = () => {
   //   setFilter(event.currentTarget.value); //? 
   // };
 
-//? запись значения из input-(Find contacts by name) в this.setState.filter
+//? запись значения из input-(Find contacts by name) в filter
   const changeFilter = (event) => {
     const filter = event.currentTarget.value;
     dispatch(changesFilter(filter));
   };
-
 
 
 
@@ -138,7 +137,7 @@ export const App = () => {
   //   );
   // };
 
-  //? Создание нового массива объектов из this.state.contacts с учетом значения поиска из this.state.filter
+  //? Создание нового массива объектов из contacts с учетом значения поиска из filter
   const getVisibleContacts = () => {
     const normalizedFilter = filter.toLowerCase();
     return contacts.filter(contact =>
