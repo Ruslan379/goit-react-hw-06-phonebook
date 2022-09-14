@@ -90,13 +90,19 @@
 
 //!
 
+//! +++++++++++++++++++++ contactsReducer  +++++++++++++++++++++
+
+//! +++++++++++++++++++++ rootReducer  +++++++++++++++++++++
+
+//! ++++++++++++++++++++++++++++ Reducers  +++++++++++++++++++++++
+
 //! 1. Хранит State,
 
 //! 2. Инициализирует State из localStorage при первом RENDER
 
 //! 3. Каждый раз обновляет localStorage при обновлении State,
 
-//! ???? ТАК НЕ РАБОТАЕТ
+//! _______________________ Reducers ____________________________________
 
 //! useState ===> contacts (аналог this.state.contacts)
 
@@ -104,14 +110,12 @@
 
 //! useState ===> name (аналог this.state.name)
 
+//! Действие (actions) для добавления name и number
+
 //! Используем Хук useLocalStorage (hooks/useLocalStorage):
 
 //! Передача значений State (name, number) в App
 
 //! Хук useLocalStorage:
-
-//! динамика
-
-//! запись значения из input-(Find contacts by name) в this.setState.filter
 
 //!_________________________________________________
