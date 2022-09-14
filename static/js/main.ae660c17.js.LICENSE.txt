@@ -88,8 +88,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-//!
-
 //!  Добавление контакта в Действия (actions) ==> 
 
 //! +++++++++++++++++++ actions +++++++++++++++++++++++++++++
@@ -105,6 +103,8 @@
 //! useState ===> name (аналог this.state.name)
 
 //! Действие (actions) для добавления contacts из LocalStorage
+
+//! Действие (actions) для добавления name и number
 
 //! Добавление contacts из LocalStorage
 
