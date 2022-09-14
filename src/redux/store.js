@@ -58,39 +58,21 @@ const contactsReducer = (state = allState, { type, payload }) => {
     switch (type) {
         case "ADD_Name&Number":
             console.log("Лог-IN action в reducer:", type, payload); //!
-            // state.contacts.items[0].name = payload;
-
-            // state.contacts.items[0].name = payload.name;
-            // state.contacts.items[0].number = payload.number;
-
-            // state.items[0].id = nanoid();
-            // state.items[0].name = payload.name;
-            // state.items[0].number = payload.number;
-            // return state;
-
             const contact = {
                 id: nanoid(),
                 name: payload.name,
                 number: payload.number,
             };
-
             return { ...state, items: [...state.items, contact] };
 
+        case "CHANGES_Filter":
+            console.log("Лог-IN action в reducer:", type, payload); //!
+            return { ...state, filter: payload };
 
-
-        // ???? ТАК НЕ РАБОТАЕТ
-        // return { ...state, contacts: { ...state.contacts, items: [...state.contacts.items, [...state.contacts.items[0], (items[0].name = A.payload)],] } }
-        // ???? ТАК НЕ РАБОТАЕТ
-        // return {
-        //     ...state,
-        //     contacts: {...state.contacts, state.contacts.items[0].name = payload}
-        // };
-
-        // case "ADD_NUMBER":
-        //     console.log("Лог-IN action в reducer:", type, payload);
-        //     // state.contacts.items[0].number = payload.number;
-        //     state.contacts.items[0].number = payload;
-        //     return state;
+        case "DELETES_Todo":
+            console.log("Лог-IN action в reducer:", type, payload); //!
+            const newContact = state.items.filter(contact => contact.id !== payload)
+            return { ...state, items: newContact };
 
         default:
             console.log("Лог-default action в reducer:", type, payload);

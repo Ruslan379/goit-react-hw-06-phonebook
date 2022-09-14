@@ -1,16 +1,16 @@
 
 import { useDispatch, useSelector } from "react-redux"; //? +++
 
-import { useState } from 'react';
+// import { useState } from 'react'; //?
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid'; //?
 
 import store from 'redux/store'; //?
 
-import useLocalStorage from 'hooks/useLocalStorage';
+// import useLocalStorage from 'hooks/useLocalStorage'; //?
 
 import { Container } from 'components/Container/Container';
 import { ContactForm } from 'components/ContactForm/ContactForm';
@@ -25,10 +25,10 @@ export const App = () => {
 
   //! useState ===> contacts (аналог this.state.contacts)
   //! Используем Хук useLocalStorage (hooks/useLocalStorage):
-  const [contacts, setContacts] = useLocalStorage("contacts", []); 
+  // const [contacts, setContacts] = useLocalStorage("contacts", []); 
   
   //! useState ===> filter (аналог this.state.filter)
-  const [filter, setFilter] = useState('');
+  // const [filter, setFilter] = useState('');
 
 
 
@@ -60,7 +60,7 @@ export const App = () => {
   //? ++++++++++++++++++++++++++++++++++++++++++++++++++++++
   const dispatch = useDispatch();
   // console.log(dispatch); //!
-  //? ++++++++++++++++++++ ВЕСЬ State +++++++++++++++++++++++++++
+  //? ++++++++++++++++++++ ВЕСЬ State & contacts, filter, +++++++++++++++++++++++++++
   console.log("App ==> store.getState() ==> ВЕСЬ State:", store.getState()); //!
 
   //! Хук useSelector читает данные из state Redux-хранилища и подписывается на их обновление
@@ -72,8 +72,10 @@ export const App = () => {
   return useSelector(state => state.contactsReducer.filter);
   };
 
-  console.log("StateContacts, [items] :", StateContacts()); //!
-  console.log("StateFilter:", StateFilter()); //!
+  const contacts = StateContacts();
+  const filter = StateFilter();
+  console.log("contacts, [items] :", contacts); //!
+  console.log("filter:", filter); //!
   //!_________________________________________________
 
   //? +++++++++++++++++++++++++++++++++++++++
@@ -83,7 +85,16 @@ export const App = () => {
       payload: { name, number },
     });
 
-
+    const changesFilter = (filter) => ({
+      type: "CHANGES_Filter",
+      payload: filter,
+    });
+  
+  const deletesTodo = (contactId) => ({
+      type: "DELETES_Todo",
+      payload: contactId,
+    });
+  
   //? Принимаем пропсы (name, number) из ContactForm
   //? alert с предупреждением о наявности контакта
   //?  Добавление контакта в Действия (actions) ==> 
@@ -106,13 +117,28 @@ export const App = () => {
 
 
   //! запись значения из input-(Find contacts by name) в this.setState.filter
+  // const changeFilter = (event) => {
+  //   setFilter(event.currentTarget.value); //? 
+  // };
+
+//? запись значения из input-(Find contacts by name) в this.setState.filter
   const changeFilter = (event) => {
-    setFilter(event.currentTarget.value); 
+    const filter = event.currentTarget.value;
+    dispatch(changesFilter(filter));
   };
 
 
 
+
   //! Создание нового массива объектов из this.state.contacts с учетом значения поиска из this.state.filter
+  // const getVisibleContacts = () => {
+  //   const normalizedFilter = filter.toLowerCase();
+  //   return contacts.filter(contact =>
+  //     (contact.name.toLowerCase()).includes(normalizedFilter),
+  //   );
+  // };
+
+  //? Создание нового массива объектов из this.state.contacts с учетом значения поиска из this.state.filter
   const getVisibleContacts = () => {
     const normalizedFilter = filter.toLowerCase();
     return contacts.filter(contact =>
@@ -123,10 +149,14 @@ export const App = () => {
 
 
   //! Создание нового массива объектов из this.state.contacts с учетом удаления контакта по его contact.id
-  const deleteTodo = contactId => {
-    setContacts(prevState => (prevState.filter(contact => contact.id !== contactId)));
-  };
+  // const deleteTodo = contactId => {
+  //   setContacts(prevState => (prevState.filter(contact => contact.id !== contactId)));
+  // };
 
+  //? Создание нового массива объектов из this.state.contacts с учетом удаления контакта по его contact.id
+  const deleteTodo = contactId => {
+    dispatch(deletesTodo(contactId));
+  };
 
 
   const visibleContacts = getVisibleContacts();
