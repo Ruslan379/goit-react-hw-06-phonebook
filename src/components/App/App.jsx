@@ -8,9 +8,20 @@ import 'react-toastify/dist/ReactToastify.css';
 
 // import { nanoid } from 'nanoid'; //?
 
-import store from 'redux/store'; //! +++
+// import store from 'redux/store'; //! +++ здесь не нужен
 
 // import useLocalStorage from 'hooks/useLocalStorage'; //?
+
+//! +++ Можно импортировать action ТАК (1 вариант)
+import * as action from 'redux/actions'; //! +++ 
+
+//! +++ Можно импортировать action ТАК (2 вариант)
+// import {
+//   AddLocalStorageContacts,
+//   addNameNumber,
+//   changesFilter,
+//   deletesTodo
+// } from 'redux/actions'; //! +++
 
 import { Container } from 'components/Container/Container';
 import { ContactForm } from 'components/ContactForm/ContactForm';
@@ -35,37 +46,37 @@ export const App = () => {
   // console.log(dispatch); //!
 
 
-
+  //todo ==> Перенесены в 'redux/actions'
   //! +++++++++++++++++++ actions +++++++++++++++++++++++++++++
-  //! Действие (actions) для добавления contacts из LocalStorage
-    const AddLocalStorageContacts = () => ({
-      type: "ADD_localStorageContacts",
-      payload: "contacts",
-    });
+  // //! Действие (actions) для добавления contacts из LocalStorage
+  //   const AddLocalStorageContacts = () => ({
+  //     type: "ADD_localStorageContacts",
+  //     payload: "contacts",
+  //   });
 
-  //! Действие (actions) для добавления name и number
-    const addNameNumber = (name, number) => ({
-      type: "ADD_Name&Number",
-      payload: { name, number },
-    });
+  // //! Действие (actions) для добавления name и number
+  //   const addNameNumber = (name, number) => ({
+  //     type: "ADD_Name&Number",
+  //     payload: { name, number },
+  //   });
   
-  //! Действие (actions) для поиска по filter
-    const changesFilter = (filter) => ({
-      type: "CHANGES_Filter",
-      payload: filter,
-    });
+  // //! Действие (actions) для поиска по filter
+  //   const changesFilter = (filter) => ({
+  //     type: "CHANGES_Filter",
+  //     payload: filter,
+  //   });
   
-  //! Действие (actions) для создание нового массива объектов 
-  //! из contacts с учетом значения поиска из filter
-    const deletesTodo = (contactId) => ({
-      type: "DELETES_Todo",
-      payload: contactId,
-    });
+  // //! Действие (actions) для создание нового массива объектов 
+  // //! из contacts с учетом значения поиска из filter
+  //   const deletesTodo = (contactId) => ({
+  //     type: "DELETES_Todo",
+  //     payload: contactId,
+  //   });
   //! _____________________ actions ________________________
 
 
   //! ++++++++++++++++++++ ВЕСЬ State & contacts, filter +++++++++++++++++++++++++++
-  console.log("App ==> store.getState() ==> ВЕСЬ State:", store.getState()); //!
+  // console.log("App ==> store.getState() ==> ВЕСЬ State:", store.getState()); //! +++ здесь не нужен
   //!_______________________________________________________________________________
 
   //! Хук useSelector читает данные из state Redux-хранилища 
@@ -86,7 +97,7 @@ export const App = () => {
 
   //! Добавление contacts из LocalStorage
   useEffect(() => {
-    dispatch(AddLocalStorageContacts());
+    dispatch(action.AddLocalStorageContacts());
   }, [dispatch]);
 
 
@@ -126,7 +137,7 @@ export const App = () => {
       return;
     } else {
       // console.log("name, number:", name, number); //!
-      dispatch(addNameNumber(name, number));
+      dispatch(action.addNameNumber(name, number));
       }
   };
 
@@ -140,7 +151,7 @@ export const App = () => {
 //! запись значения из input-(Find contacts by name) в filter
   const changeFilter = (event) => {
     const filter = event.currentTarget.value;
-    dispatch(changesFilter(filter));
+    dispatch(action.changesFilter(filter));
   };
 
 
@@ -170,7 +181,7 @@ export const App = () => {
 
   //! Создание нового массива объектов из this.state.contacts с учетом удаления контакта по его contact.id
   const deleteTodo = contactId => {
-    dispatch(deletesTodo(contactId));
+    dispatch(action.deletesTodo(contactId));
   };
 
 
