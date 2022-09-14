@@ -108,6 +108,8 @@
 
 //! Действие (actions) для добавления name и number
 
+//! Действие (actions) для поиска по filter
+
 //! Добавление контакта в this.state.contacts
 
 //! Используем Хук useLocalStorage (hooks/useLocalStorage):
