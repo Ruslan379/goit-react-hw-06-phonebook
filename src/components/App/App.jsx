@@ -60,44 +60,59 @@ export const App = () => {
   //? ++++++++++++++++++++++++++++++++++++++++++++++++++++++
   const dispatch = useDispatch();
   // console.log(dispatch); //!
-  //? ++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  console.log("App store.getState():", store.getState()); //!
+  //? ++++++++++++++++++++ ВЕСЬ State +++++++++++++++++++++++++++
+  console.log("App ==> store.getState() ==> ВЕСЬ State:", store.getState()); //!
 
   //! Хук useSelector читает данные из state Redux-хранилища и подписывается на их обновление
-  const StateName = () => {
-  return useSelector(state => state.contacts.items[0].name);
+  // const StateName = () => {
+  // return useSelector(state => state.contacts.items[0].name);
+  // };
+
+  // const StateNumber = () => {
+  // return useSelector(state => state.contacts.items[0].number);
+  // };
+
+  // console.log("StateName:", StateName()); //!
+  // console.log("StateNumber:", StateNumber()); //!
+
+
+  const StateContacts = () => {
+  return useSelector(state => state.contactsReducer.items);
   };
 
-  const StateNumber = () => {
-  return useSelector(state => state.contacts.items[0].number);
+  const StateFilter = () => {
+  return useSelector(state => state.contactsReducer.filter);
   };
 
-  console.log("StateName:", StateName()); //!
-  console.log("StateNumber:", StateNumber()); //!
+  console.log("StateContacts, [items] :", StateContacts()); //!
+  console.log("StateFilter:", StateFilter()); //!
   //!_________________________________________________
 
   //? +++++++++++++++++++++++++++++++++++++++
-  //?  Добавление контакта в addName и addNumber
-  const addName = (name) => ({
-      type: "ADD_NAME",
-      payload: name,
+  //! Действие (actions) для добавления name и number
+    const addNameNumber = (name, number) => ({
+      type: "ADD_Name&Number",
+      payload: { name, number },
     });
-    console.log("addName:", addName); //!
 
-    const addNumber = (number) => ({
-      type: "ADD_NUMBER",
-      payload: number,
-    });
-    console.log("addNumber:", addNumber); //!
 
-  //! динамика
-    // const myAction = (name, number) => ({
-    //   type: "MY_ACTION",
-    //   payload: { name, number },
-    // });
+  // const addName = (name) => ({
+  //     type: "ADD_NAME",
+  //     payload: name,
+  //   });
+  //   console.log("addName:", addName); //!
+
+  //   const addNumber = (number) => ({
+  //     type: "ADD_NUMBER",
+  //     payload: number,
+  //   });
+  //   console.log("addNumber:", addNumber); //!
+
+  
 
   //? Принимаем пропсы (name, number) из ContactForm
   //? alert с предупреждением о наявности контакта
+  //?  Добавление контакта в Действия (actions) ==> 
   const formSubmitHandler = (name, number) => {
     
     if (contacts.find(item => item.name.toLowerCase() === name.toLowerCase())) {
@@ -111,9 +126,12 @@ export const App = () => {
       // store.dispatch(addName); //! НЕ РАБОТАЕТ!!!
       // store.dispatch(addNumber); ///! НЕ РАБОТАЕТ!!!
       
-      console.log(name, number);
-      dispatch(addName(name));
-      dispatch(addNumber(number));
+      // dispatch(addNameNumber(name));
+      // dispatch(addNumber(number));
+
+      console.log("name, number:", name, number); //!
+      dispatch(addNameNumber(name, number));
+
       }
   };
 
