@@ -64,18 +64,6 @@ export const App = () => {
   console.log("App ==> store.getState() ==> ВЕСЬ State:", store.getState()); //!
 
   //! Хук useSelector читает данные из state Redux-хранилища и подписывается на их обновление
-  // const StateName = () => {
-  // return useSelector(state => state.contacts.items[0].name);
-  // };
-
-  // const StateNumber = () => {
-  // return useSelector(state => state.contacts.items[0].number);
-  // };
-
-  // console.log("StateName:", StateName()); //!
-  // console.log("StateNumber:", StateNumber()); //!
-
-
   const StateContacts = () => {
   return useSelector(state => state.contactsReducer.items);
   };
@@ -96,20 +84,6 @@ export const App = () => {
     });
 
 
-  // const addName = (name) => ({
-  //     type: "ADD_NAME",
-  //     payload: name,
-  //   });
-  //   console.log("addName:", addName); //!
-
-  //   const addNumber = (number) => ({
-  //     type: "ADD_NUMBER",
-  //     payload: number,
-  //   });
-  //   console.log("addNumber:", addNumber); //!
-
-  
-
   //? Принимаем пропсы (name, number) из ContactForm
   //? alert с предупреждением о наявности контакта
   //?  Добавление контакта в Действия (actions) ==> 
@@ -120,18 +94,12 @@ export const App = () => {
       toast.warning(`${name} уже есть в контактах.`); 
       return;
     } else {
-      // addName(name);
-      // addNumber(number);
-
+ 
       // store.dispatch(addName); //! НЕ РАБОТАЕТ!!!
       // store.dispatch(addNumber); ///! НЕ РАБОТАЕТ!!!
       
-      // dispatch(addNameNumber(name));
-      // dispatch(addNumber(number));
-
       console.log("name, number:", name, number); //!
       dispatch(addNameNumber(name, number));
-
       }
   };
 
