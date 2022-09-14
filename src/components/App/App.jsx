@@ -155,15 +155,7 @@ export const App = () => {
   };
 
 
-
   //? Создание нового массива объектов из this.state.contacts с учетом значения поиска из this.state.filter
-  // const getVisibleContacts = () => {
-  //   const normalizedFilter = filter.toLowerCase();
-  //   return contacts.filter(contact =>
-  //     (contact.name.toLowerCase()).includes(normalizedFilter),
-  //   );
-  // };
-
   //! Создание нового массива объектов из contacts с учетом значения поиска из filter
   const getVisibleContacts = () => {
     const normalizedFilter = filter.toLowerCase();
