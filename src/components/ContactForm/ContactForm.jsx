@@ -1,8 +1,3 @@
-// import { useSelector } from "react-redux"; //? +++
-// import { useDispatch } from "react-redux"; //? +++
-// import store from 'redux/store'; //? +++
-// import { useSelector } from "react-redux"; //? +++
-
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
@@ -15,7 +10,6 @@ import css from 'components/ContactForm/ContactForm.module.css' //todo = ста�
 
 
 export const ContactForm = ({ onSubmit }) => {
-
   //! useState ===> name (аналог this.state.name)
   const [name, setName] = useState('');
   //! useState ===> number (аналог this.state.number)
