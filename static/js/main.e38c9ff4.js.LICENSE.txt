@@ -96,13 +96,9 @@
 
 //! ++++++++++++++++++++++++++++ Reducers  +++++++++++++++++++++++
 
-//! 1. Хранит State,
-
-//! 2. Инициализирует State из localStorage при первом RENDER
-
-//! 3. Каждый раз обновляет localStorage при обновлении State,
-
 //! _______________________ Reducers ____________________________________
+
+//! alert с предупреждением о наявности контакта
 
 //! useState ===> contacts (аналог this.state.contacts)
 
@@ -112,10 +108,14 @@
 
 //! Действие (actions) для добавления name и number
 
+//! Добавление контакта в this.state.contacts
+
 //! Используем Хук useLocalStorage (hooks/useLocalStorage):
 
 //! Передача значений State (name, number) в App
 
-//! Хук useLocalStorage:
+//! Принимаем пропсы (name, number) из ContactForm
+
+//! Хук useSelector читает данные из state Redux-хранилища и подписывается на их обновление
 
 //!_________________________________________________
