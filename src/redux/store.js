@@ -11,7 +11,7 @@ import { combineReducers } from 'redux'; //! Пока не используем
 import * as action from 'redux/actions'; //! +++ 
 
 
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid'; //? УЖЕ не используем
 
 //! +++++++++++++++++++++++ ИНИЦИАЛИЗАЦИЯ State ++++++++++++
 //! Модель (проэктирование) State
@@ -103,10 +103,11 @@ const itemsReducer = createReducer(initialItems, {
         return localStorageContacts;
     },
 
-    [action.addNameNumber]: (state, { payload }) => {
-        // console.log("action.addNameNumber:", action); //!
+    [action.addContact]: (state, { payload }) => {
+        // console.log("action.addContact:", action); //!
         const contact = {
-            id: nanoid(),
+            // id: nanoid(), //? OLD
+            id: payload.id,
             name: payload.name,
             number: payload.number,
         };

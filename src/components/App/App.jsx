@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux"; //! +++
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// import { nanoid } from 'nanoid'; //?
+import { nanoid } from 'nanoid'; //?
 
 // import store from 'redux/store'; //! Пока не используем
 
@@ -18,7 +18,7 @@ import * as action from 'redux/actions'; //! +++
 //! +++ Можно импортировать action ТАК (2 вариант)
 // import {
 //   AddLocalStorageContacts,
-//   addNameNumber,
+//   addContact,
 //   changesFilter,
 //   deletesTodo
 // } from 'redux/actions'; //! +++
@@ -71,7 +71,7 @@ export const App = () => {
       return;
     } else {
       // console.log("name, number:", name, number); //!
-      dispatch(action.addNameNumber({name, number}));
+      dispatch(action.addContact({id: nanoid(), name, number}));
       }
   };
 

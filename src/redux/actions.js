@@ -10,7 +10,7 @@ import { createAction } from '@reduxjs/toolkit'
 // });
 
 //! Действие (actions) для добавления contacts из LocalStorage
-export const AddLocalStorageContacts = createAction('ADD_localStorageContacts');
+export const AddLocalStorageContacts = createAction('items/ADD_LocalStorageContacts');
 
 
 
@@ -23,7 +23,7 @@ export const AddLocalStorageContacts = createAction('ADD_localStorageContacts');
 // });
 
 //! Действие (actions) для добавления name и number
-export const addNameNumber = createAction('ADD_Name&Number');
+export const addContact = createAction('items/ADD_Contact');
 
 
 
@@ -37,7 +37,7 @@ export const addNameNumber = createAction('ADD_Name&Number');
 // });
 
 //! Действие (actions) для поиска по filter
-export const changesFilter = createAction('CHANGES_Filter');
+export const changesFilter = createAction('filter/CHANGES_Filter');
 
 
 
@@ -52,6 +52,6 @@ export const changesFilter = createAction('CHANGES_Filter');
 
 //! Действие (actions) для создание нового массива объектов 
 //! из contacts с учетом значения поиска из filter
-export const deletesTodo = createAction('DELETES_Todo');
+export const deletesTodo = createAction('items/DELETE_Contact');
 
 
