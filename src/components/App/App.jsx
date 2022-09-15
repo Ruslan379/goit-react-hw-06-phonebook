@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 // import { nanoid } from 'nanoid'; //?
 
-import store from 'redux/store'; //! +++ здесь не нужен
+// import store from 'redux/store'; //! Пока не используем
 
 // import useLocalStorage from 'hooks/useLocalStorage'; //?
 
@@ -44,10 +44,10 @@ export const App = () => {
 
   //! ++++++++++++++++++ Хук useSelector  ++++++++++++++++++
   //! читает данные из state Redux-хранилища и подписывается на их обновление
-  // const contacts = useSelector(state => state.contacts.items);
-  // const filter = useSelector(state => state.contacts.filter);
-  const contacts = useSelector(state => state.rootReducer.contacts.items);
-  const filter = useSelector(state => state.rootReducer.contacts.filter);
+  const contacts = useSelector(state => state.contacts.items);
+  const filter = useSelector(state => state.contacts.filter);
+  // const contacts = useSelector(state => state.rootReducer.contacts.items); //? -+
+  // const filter = useSelector(state => state.rootReducer.contacts.filter); //? -+
   // console.log("contacts, [items] :", contacts); //!
   // console.log("filter:", filter); //!
   //!__________________ Хук useSelector _____________________________
@@ -56,7 +56,8 @@ export const App = () => {
 
   //! Добавление contacts из LocalStorage
   useEffect(() => {
-    dispatch(action.AddLocalStorageContacts());
+    // dispatch(action.AddLocalStorageContacts()); //? OLD
+    dispatch(action.AddLocalStorageContacts("contacts"));
   }, [dispatch]);
 
 
@@ -70,7 +71,7 @@ export const App = () => {
       return;
     } else {
       // console.log("name, number:", name, number); //!
-      dispatch(action.addNameNumber(name, number));
+      dispatch(action.addNameNumber({name, number}));
       }
   };
 
@@ -106,7 +107,7 @@ export const App = () => {
 
 
   //! ++++++++++++++++++++++++++++ ВЕСЬ State ++++++++++++++++++++++++++++++++++
-  console.log("ВЕСЬ State из App ==> store.getState():", store.getState()); //!
+  // console.log("ВЕСЬ State из App ==> store.getState():", store.getState()); //!
   //!___________________________________________________________________________
   
 // * +++++++++++++++++++++++++++ MARKUP ++++++++++++++++++++++++++++++++++
