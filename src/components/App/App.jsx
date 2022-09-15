@@ -97,7 +97,8 @@ export const App = () => {
 
   //! Создание нового массива объектов из this.state.contacts с учетом удаления контакта по его contact.id
   const deleteTodo = contactId => {
-    dispatch(action.deletesTodo(contactId));
+    // console.log("contactId:", contactId); //!
+    dispatch(action.deletesTodo({contactId}));
   };
 
 

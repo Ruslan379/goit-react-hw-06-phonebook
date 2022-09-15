@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 // import { createAction, createReducer } from '@reduxjs/toolkit' //! Пока не используем
 
 import { createReducer } from '@reduxjs/toolkit'
-// import { combineReducers } from 'redux'; //! Пока не используем
+import { combineReducers } from 'redux'; //! Пока не используем
 
 // import { createStore, combineReducers } from 'redux'; //? УЖЕ не используем
 // import { composeWithDevTools } from 'redux-devtools-extension'; //? УЖЕ не используем
@@ -14,13 +14,24 @@ import * as action from 'redux/actions'; //! +++
 import { nanoid } from 'nanoid';
 
 //! +++++++++++++++++++++++ ИНИЦИАЛИЗАЦИЯ State ++++++++++++
+//! Модель (проэктирование) State
+// const allState = {
+//     items: [],
+//     filter: "",
+// };
+
+
+const initialItems = [];
+const initialFilter = "";
 
 const allState = {
-    items: [],
-    filter: "",
+    contacts: {
+        items: initialItems,
+        filter: initialFilter
+    }
 };
 
-// console.log("STATE ==> contacts:", allState); //!
+console.log("Модель STATE ==>", allState); //!
 
 
 
@@ -81,11 +92,14 @@ const allState = {
 // const decrement = createAction('decrement')
 
 
-//! +++++++++++++++++++++ contactsReducer NEW +++++++++++++++++++++
-const contactsReducer = createReducer(allState, {
+//? ---OLD +++++++++++++++++++++ contactsReducer NEW +++++++++++++++++++++
+// const contactsReducer = createReducer(allState, { //? ---OLD
+//! +++++++++++++++++++++ itemsReducer +++++++++++++++++++++
+const itemsReducer = createReducer(initialItems, {
     [action.AddLocalStorageContacts]: (state, action) => {
         const localStorageContacts = JSON.parse(localStorage.getItem(action.payload)) ?? [];
-        return { ...state, items: localStorageContacts };
+        // return { ...state, items: localStorageContacts }; //? OLD
+        return localStorageContacts;
     },
 
     [action.addNameNumber]: (state, action) => {
@@ -95,22 +109,37 @@ const contactsReducer = createReducer(allState, {
             name: action.payload.name,
             number: action.payload.number,
         };
-        const localStorageAddContacts = [...state.items, contact]
+        // const localStorageAddContacts = [...state.items, contact] //? OLD
+        const localStorageAddContacts = [...state, contact]
         localStorage.setItem("contacts", JSON.stringify(localStorageAddContacts))
-        return { ...state, items: [...state.items, contact] };
+        // return { ...state, items: [...state.items, contact] }; //? OLD
+        return [...state, contact];
     },
-
-    [action.changesFilter]: (state, action) => {
-        return { ...state, filter: action.payload };
-    },
+    //? Перенесен в filterReducer
+    // [action.changesFilter]: (state, action) => {
+    //     return { ...state, filter: action.payload };
+    // },
 
     [action.deletesTodo]: (state, action) => {
-        const newContact = state.items.filter(contact => contact.id !== action.payload)
+        // const newContact = state.items.filter(contact => contact.id !== action.payload) //? OLD
+        const id = action.payload.contactId;
+        // console.log("id:", id); //!
+        // console.log("action.deletesTodo state:", state); //! не показывает
+        const newContact = state.filter(contact => contact.id !== id)
         localStorage.setItem("contacts", JSON.stringify(newContact))
-        return { ...state, items: newContact };
+        // return { ...state, items: newContact }; //? OLD
+        return newContact;
     },
 });
 
+
+//! +++++++++++++++++++++ filterReducer  +++++++++++++++++++++
+const filterReducer = createReducer(initialFilter, {
+    [action.changesFilter]: (state, action) => {
+        // console.log("action.changesFilter state:", state); //! показывает с задержкой на 1 шаг
+        return action.payload;
+    },
+})
 
 
 //! +++++++++++++++++++++ rootReducer  +++++++++++++++++++++
@@ -122,22 +151,28 @@ const contactsReducer = createReducer(allState, {
 
 
 //! Пока не используем
-// const rootReducer = combineReducers({
-//     contacts: contactsReducer,
-// });
-//! ______________________ rootReducer ______________________
+const rootReducer = combineReducers({
+    items: itemsReducer,
+    filter: filterReducer
+});
+
 
 
 
 //todo: OLD store +++++++++++++++++++++++++++++++++++++++++
 // const store = createStore(rootReducer, composeWithDevTools()); //? ---
 
-
-
 //! NEW store +++++++++++++++++++++++++++++++++++++++++
+//? 
+// const store = configureStore({
+//     reducer: {
+//         contacts: contactsReducer
+//     },
+// });
+
 const store = configureStore({
     reducer: {
-        contacts: contactsReducer
+        contacts: rootReducer
     },
 });
 
