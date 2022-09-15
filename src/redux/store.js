@@ -96,33 +96,33 @@ console.log("Модель STATE ==>", allState); //!
 // const contactsReducer = createReducer(allState, { //? ---OLD
 //! +++++++++++++++++++++ itemsReducer +++++++++++++++++++++
 const itemsReducer = createReducer(initialItems, {
-    [action.AddLocalStorageContacts]: (state, action) => {
-        const localStorageContacts = JSON.parse(localStorage.getItem(action.payload)) ?? [];
+    [action.AddLocalStorageContacts]: (state, { payload }) => {
+        const localStorageContacts = JSON.parse(localStorage.getItem(payload)) ?? [];
         // return { ...state, items: localStorageContacts }; //? OLD
         return localStorageContacts;
     },
 
-    [action.addNameNumber]: (state, action) => {
+    [action.addNameNumber]: (state, { payload }) => {
         // console.log("action.addNameNumber:", action); //!
         const contact = {
             id: nanoid(),
-            name: action.payload.name,
-            number: action.payload.number,
+            name: payload.name,
+            number: payload.number,
         };
         // const localStorageAddContacts = [...state.items, contact] //? OLD
         const localStorageAddContacts = [...state, contact]
         localStorage.setItem("contacts", JSON.stringify(localStorageAddContacts))
         // return { ...state, items: [...state.items, contact] }; //? OLD
-        return [...state, contact];
+        return localStorageAddContacts;
     },
     //? Перенесен в filterReducer
     // [action.changesFilter]: (state, action) => {
     //     return { ...state, filter: action.payload };
     // },
 
-    [action.deletesTodo]: (state, action) => {
+    [action.deletesTodo]: (state, { payload }) => {
         // const newContact = state.items.filter(contact => contact.id !== action.payload) //? OLD
-        const id = action.payload.contactId;
+        const id = payload.contactId;
         // console.log("id:", id); //!
         // console.log("action.deletesTodo state:", state); //! не показывает
         const newContact = state.filter(contact => contact.id !== id)
@@ -135,9 +135,9 @@ const itemsReducer = createReducer(initialItems, {
 
 //! +++++++++++++++++++++ filterReducer  +++++++++++++++++++++
 const filterReducer = createReducer(initialFilter, {
-    [action.changesFilter]: (state, action) => {
+    [action.changesFilter]: (state, { payload }) => {
         // console.log("action.changesFilter state:", state); //! показывает с задержкой на 1 шаг
-        return action.payload;
+        return payload.filterValue;
     },
 })
 

@@ -79,8 +79,8 @@ export const App = () => {
 
 //! запись значения из input-(Find contacts by name) в filter
   const changeFilter = (event) => {
-    // const filter = event.currentTarget.value; 
-    dispatch(action.changesFilter(event.currentTarget.value));
+    const filterValue = event.currentTarget.value; 
+    dispatch(action.changesFilter({filterValue}));
   };
 
 
