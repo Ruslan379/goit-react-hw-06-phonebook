@@ -1,10 +1,44 @@
+// import { createStore, } from 'redux';
 import { createStore, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 
 import { nanoid } from 'nanoid';
 
-//! +++++++++++++++++++++++ ИНИЦИАЛИЗАЦИЯ State ++++++++++++
+//! +++++++++++++++++++++++ ИНИЦИАЛИЗАЦИЯ ЧАСТЕЙ State ++++++++++++
+// const initialState = {};
+
+// const allState_OLD = {
+//     contacts: {
+//         items: [{
+//             id: nanoid(),
+//             name: "",
+//             number: ""
+//         }],
+//         filter: "",
+//     },
+// };
+
+// const contactsState1 = {
+//     items: [{
+//         id: nanoid(),
+//         name: "",
+//         number: ""
+//     }],
+// };
+
+
+// const contactsState = {
+//     items: [],
+// };
+
+// const filterState = {
+//     filter: "",
+// };
+
+// console.log("allState_OLD:", allState_OLD); //?
+// console.log("contactsState:", contactsState); //?
+// console.log("filterState:", filterState); //?
 
 const allState = {
     items: [],
@@ -14,7 +48,7 @@ const allState = {
 // console.log("STATE ==> contacts:", allState); //!
 
 
-
+//! ++++++++++++++++++++++++++++ Reducers  +++++++++++++++++++++++
 //! +++++++++++++++++++++ contactsReducer  +++++++++++++++++++++
 const contactsReducer = (state = allState, { type, payload }) => {
     // console.log("Лог action в reducer:", type, payload); //!
@@ -81,8 +115,8 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer, composeWithDevTools());
 
-//! ++++++++++++++++++++++++++++ ВЕСЬ State +++++++++++++++++++++++++++++++++++
-console.log("ВЕСЬ State из App store.js ==> store.getState():", store.getState()); //!
-//! ____________________________________________________________________________
+//? ++++++++++++++++++++ ВЕСЬ State +++++++++++++++++++++++++++
+console.log("store.js ==> store.getState() ==> ВЕСЬ State:", store.getState()); //!
+
 
 export default store;

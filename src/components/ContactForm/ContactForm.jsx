@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { nanoid } from 'nanoid';
 
-import css from 'components/ContactForm/ContactForm.module.css' //todo = старый вариант импорта стилей
+import css from 'components/ContactForm/ContactForm.module.css' 
 
 
 
@@ -112,7 +112,6 @@ export const ContactForm = ({ onSubmit }) => {
           </button>
         </form>
     );
-
   } 
 
 

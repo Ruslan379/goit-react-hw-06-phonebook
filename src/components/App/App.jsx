@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 // import { nanoid } from 'nanoid'; //?
 
-// import store from 'redux/store'; //! +++ здесь не нужен
+import store from 'redux/store'; //! +++ здесь не нужен
 
 // import useLocalStorage from 'hooks/useLocalStorage'; //?
 
@@ -33,73 +33,24 @@ import { ContactList } from 'components/ContactList/ContactList';
 
 
 export const App = () => {
-  //? useState ===> contacts (аналог this.state.contacts)
-  //? Используем Хук useLocalStorage (hooks/useLocalStorage):
-  //? const [contacts, setContacts] = useLocalStorage("contacts", []);
-  
-  //? useState ===> filter (аналог this.state.filter)
-  //? const [filter, setFilter] = useState('');
 
-
-  //! ++++++++++++++++++++++++ useDispatch ++++++++++++++++++++++++++++++
+  //! +++++++ Хук useDispatch +++++++++++++
   const dispatch = useDispatch();
-  // console.log(dispatch); //!
 
-
-  //todo ==> Перенесены в 'redux/actions'
-  //! +++++++++++++++++++ actions +++++++++++++++++++++++++++++
-  // //! Действие (actions) для добавления contacts из LocalStorage
-  //   const AddLocalStorageContacts = () => ({
-  //     type: "ADD_localStorageContacts",
-  //     payload: "contacts",
-  //   });
-
-  // //! Действие (actions) для добавления name и number
-  //   const addNameNumber = (name, number) => ({
-  //     type: "ADD_Name&Number",
-  //     payload: { name, number },
-  //   });
+  //todo:  Действие (actions) ==> Перенесены в 'redux/actions'
   
-  // //! Действие (actions) для поиска по filter
-  //   const changesFilter = (filter) => ({
-  //     type: "CHANGES_Filter",
-  //     payload: filter,
-  //   });
+
   
-  // //! Действие (actions) для создание нового массива объектов 
-  // //! из contacts с учетом значения поиска из filter
-  //   const deletesTodo = (contactId) => ({
-  //     type: "DELETES_Todo",
-  //     payload: contactId,
-  //   });
-  //! _____________________ actions ________________________
 
-
-  //! ++++++++++++++++++++ ВЕСЬ State & contacts, filter +++++++++++++++++++++++++++
-  // console.log("App ==> store.getState() ==> ВЕСЬ State:", store.getState()); //! +++ здесь не нужен
-  //!_______________________________________________________________________________
-
-  //! Хук useSelector читает данные из state Redux-хранилища 
-  //! и подписывается на их обновление
-  // const StateContacts = () => {
-  //   // return useSelector(state => state.contactsReducer.items); //! OLD 
-  //   return useSelector(state => state.contacts.items);
-  // };
-
-  // const StateFilter = () => {
-  //   // return useSelector(state => state.contactsReducer.filter); //! OLD
-  //   return useSelector(state => state.contacts.filter);
-  // };
-
-  // const contacts = StateContacts();
-  // const filter = StateFilter();
-
+  //! ++++++++++++++++++ Хук useSelector  ++++++++++++++++++
+  //! читает данные из state Redux-хранилища и подписывается на их обновление
   const contacts = useSelector(state => state.contacts.items);
   const filter = useSelector(state => state.contacts.filter);
-  
   // console.log("contacts, [items] :", contacts); //!
   // console.log("filter:", filter); //!
-  //!__________________ Хук useSelector ______________________
+  //!__________________ Хук useSelector _____________________________
+
+
 
   //! Добавление contacts из LocalStorage
   useEffect(() => {
@@ -107,34 +58,8 @@ export const App = () => {
   }, [dispatch]);
 
 
-  
-  //? Добавление контакта в this.state.contacts
-  // const addСontact = (name, number) => {
-  //   const contact = {
-  //     id: nanoid(),
-  //     name,
-  //     number,
-  //   };
-  //   setContacts(prevState =>
-  //     [...prevState, contact]);
-  // };
 
-
-
-  //? Принимаем пропсы (name, number) из ContactForm
-  //? alert с предупреждением о наявности контакта
-  // const formSubmitHandler = (name, number) => {
-    
-  //   if (contacts.find(item => item.name.toLowerCase() === name.toLowerCase())) {
-  //     alert(`${name} is already in contacts.`);
-  //     toast.warning(`${name} уже есть в контактах.`);
-  //     return;
-  //   } else {
-  //     addСontact(name, number);
-  //     }
-  // };
-
-  //! Принимаем пропсы (name, number) из ContactForm
+  //! Принимаем (name, number) из ContactForm
   //! alert с предупреждением о наявности контакта
   //!  Добавление контакта в Действия (actions) ==> 
   const formSubmitHandler = (name, number) => {
@@ -149,19 +74,14 @@ export const App = () => {
 
 
 
-  //? запись значения из input-(Find contacts by name) в this.setState.filter
-  // const changeFilter = (event) => {
-  //   setFilter(event.currentTarget.value); //? 
-  // };
-
 //! запись значения из input-(Find contacts by name) в filter
   const changeFilter = (event) => {
-    const filter = event.currentTarget.value;
-    dispatch(action.changesFilter(filter));
+    // const filter = event.currentTarget.value; 
+    dispatch(action.changesFilter(event.currentTarget.value));
   };
 
 
-   //? Создание нового массива объектов из this.state.contacts с учетом значения поиска из this.state.filter
+
   //! Создание нового массива объектов из contacts с учетом значения поиска из filter
   const getVisibleContacts = () => {
     const normalizedFilter = filter.toLowerCase();
@@ -171,11 +91,6 @@ export const App = () => {
   };
 
 
-
-  //? Создание нового массива объектов из this.state.contacts с учетом удаления контакта по его contact.id
-  // const deleteTodo = contactId => {
-  //   setContacts(prevState => (prevState.filter(contact => contact.id !== contactId)));
-  // };
 
   //! Создание нового массива объектов из this.state.contacts с учетом удаления контакта по его contact.id
   const deleteTodo = contactId => {
@@ -188,7 +103,10 @@ export const App = () => {
   const totalContacts = contacts.length;
 
 
-
+  //! ++++++++++++++++++++++++++++ ВЕСЬ State ++++++++++++++++++++++++++++++++++
+  console.log("ВЕСЬ State из App ==> store.getState():", store.getState()); //!
+  //!___________________________________________________________________________
+  
 // * +++++++++++++++++++++++++++ MARKUP ++++++++++++++++++++++++++++++++++
     return (
       <Container>
@@ -210,7 +128,6 @@ export const App = () => {
           visibleContacts={visibleContacts}
           onDeleteTodo={deleteTodo}
         />
-
       </Container>
     );
   }
