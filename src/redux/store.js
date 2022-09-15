@@ -108,14 +108,15 @@ const contactsReducer = (state = allState, { type, payload }) => {
 // });
 
 const rootReducer = combineReducers({
-    contactsReducer,
+    // contactsReducer, //! OLD
+    contacts: contactsReducer,
 });
 //! ______________________ rootReducer ______________________
 
 const store = createStore(rootReducer, composeWithDevTools());
 
 //? ++++++++++++++++++++ ВЕСЬ State +++++++++++++++++++++++++++
-// console.log("store.js ==> store.getState() ==> ВЕСЬ State:", store.getState()); //!
+console.log("store.js ==> store.getState() ==> ВЕСЬ State:", store.getState()); //!
 
 
 export default store;

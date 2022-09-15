@@ -82,11 +82,13 @@ export const App = () => {
   //! Хук useSelector читает данные из state Redux-хранилища 
   //! и подписывается на их обновление
   const StateContacts = () => {
-  return useSelector(state => state.contactsReducer.items);
+    // return useSelector(state => state.contactsReducer.items); //! OLD 
+    return useSelector(state => state.contacts.items);
   };
 
   const StateFilter = () => {
-  return useSelector(state => state.contactsReducer.filter);
+    // return useSelector(state => state.contactsReducer.filter); //! OLD
+    return useSelector(state => state.contacts.filter);
   };
 
   const contacts = StateContacts();
@@ -155,7 +157,7 @@ export const App = () => {
   };
 
 
-  //? Создание нового массива объектов из this.state.contacts с учетом значения поиска из this.state.filter
+   //? Создание нового массива объектов из this.state.contacts с учетом значения поиска из this.state.filter
   //! Создание нового массива объектов из contacts с учетом значения поиска из filter
   const getVisibleContacts = () => {
     const normalizedFilter = filter.toLowerCase();
