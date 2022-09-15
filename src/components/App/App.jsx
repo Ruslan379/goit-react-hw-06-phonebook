@@ -57,7 +57,7 @@ export const App = () => {
   //! Добавление contacts из LocalStorage
   useEffect(() => {
     // dispatch(action.AddLocalStorageContacts()); //? OLD
-    dispatch(action.AddLocalStorageContacts("contacts"));
+    dispatch(action.AddLocalStorageContacts({ key: "contacts", defaultValue: []}));
   }, [dispatch]);
 
 

@@ -15,6 +15,7 @@ import { nanoid } from 'nanoid';
 
 //! +++++++++++++++++++++++ ИНИЦИАЛИЗАЦИЯ State ++++++++++++
 //! Модель (проэктирование) State
+//? OLD
 // const allState = {
 //     items: [],
 //     filter: "",
@@ -24,14 +25,14 @@ import { nanoid } from 'nanoid';
 const initialItems = [];
 const initialFilter = "";
 
-const allState = {
-    contacts: {
-        items: initialItems,
-        filter: initialFilter
-    }
-};
+// const allState = {
+//     contacts: {
+//         items: initialItems,
+//         filter: initialFilter
+//     }
+// };
 
-console.log("Модель STATE ==>", allState); //!
+// console.log("Модель STATE ==>", allState); //!
 
 
 
@@ -97,7 +98,7 @@ console.log("Модель STATE ==>", allState); //!
 //! +++++++++++++++++++++ itemsReducer +++++++++++++++++++++
 const itemsReducer = createReducer(initialItems, {
     [action.AddLocalStorageContacts]: (state, { payload }) => {
-        const localStorageContacts = JSON.parse(localStorage.getItem(payload)) ?? [];
+        const localStorageContacts = JSON.parse(localStorage.getItem(payload.key)) ?? payload.defaultValue;
         // return { ...state, items: localStorageContacts }; //? OLD
         return localStorageContacts;
     },
@@ -179,7 +180,7 @@ const store = configureStore({
 
 
 //! ++++++++++++++++++++++++++++ ВЕСЬ State +++++++++++++++++++++++++++++++++++
-console.log("ВЕСЬ State из App store.js ==> store.getState():", store.getState()); //!
+// console.log("ВЕСЬ State из App store.js ==> store.getState():", store.getState()); //!
 //! ____________________________________________________________________________
 
 export default store;
