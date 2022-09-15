@@ -1,5 +1,7 @@
-import { createStore, combineReducers } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { configureStore } from '@reduxjs/toolkit'
+// import { createStore, combineReducers } from 'redux'; //? ---
+import { combineReducers } from 'redux'; //? ---
+// import { composeWithDevTools } from 'redux-devtools-extension'; //? ---
 
 
 import { nanoid } from 'nanoid';
@@ -79,7 +81,16 @@ const rootReducer = combineReducers({
 });
 //! ______________________ rootReducer ______________________
 
-const store = createStore(rootReducer, composeWithDevTools());
+// const store = createStore(rootReducer, composeWithDevTools()); //? ---
+
+
+
+//! NEW +++++++++++++++++++++++++++++++++++++++++
+
+const store = configureStore({
+    reducer: { rootReducer },
+});
+
 
 //! ++++++++++++++++++++++++++++ ВЕСЬ State +++++++++++++++++++++++++++++++++++
 console.log("ВЕСЬ State из App store.js ==> store.getState():", store.getState()); //!

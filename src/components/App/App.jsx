@@ -44,8 +44,10 @@ export const App = () => {
 
   //! ++++++++++++++++++ Хук useSelector  ++++++++++++++++++
   //! читает данные из state Redux-хранилища и подписывается на их обновление
-  const contacts = useSelector(state => state.contacts.items);
-  const filter = useSelector(state => state.contacts.filter);
+  // const contacts = useSelector(state => state.contacts.items);
+  // const filter = useSelector(state => state.contacts.filter);
+  const contacts = useSelector(state => state.rootReducer.contacts.items);
+  const filter = useSelector(state => state.rootReducer.contacts.filter);
   // console.log("contacts, [items] :", contacts); //!
   // console.log("filter:", filter); //!
   //!__________________ Хук useSelector _____________________________
