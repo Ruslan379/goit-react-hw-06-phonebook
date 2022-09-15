@@ -81,18 +81,22 @@ export const App = () => {
 
   //! Хук useSelector читает данные из state Redux-хранилища 
   //! и подписывается на их обновление
-  const StateContacts = () => {
-    // return useSelector(state => state.contactsReducer.items); //! OLD 
-    return useSelector(state => state.contacts.items);
-  };
+  // const StateContacts = () => {
+  //   // return useSelector(state => state.contactsReducer.items); //! OLD 
+  //   return useSelector(state => state.contacts.items);
+  // };
 
-  const StateFilter = () => {
-    // return useSelector(state => state.contactsReducer.filter); //! OLD
-    return useSelector(state => state.contacts.filter);
-  };
+  // const StateFilter = () => {
+  //   // return useSelector(state => state.contactsReducer.filter); //! OLD
+  //   return useSelector(state => state.contacts.filter);
+  // };
 
-  const contacts = StateContacts();
-  const filter = StateFilter();
+  // const contacts = StateContacts();
+  // const filter = StateFilter();
+
+  const contacts = useSelector(state => state.contacts.items);
+  const filter = useSelector(state => state.contacts.filter);
+  
   // console.log("contacts, [items] :", contacts); //!
   // console.log("filter:", filter); //!
   //!__________________ Хук useSelector ______________________
