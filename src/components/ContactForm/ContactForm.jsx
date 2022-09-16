@@ -52,6 +52,8 @@ export const ContactForm = ({ onSubmit }) => {
   const handleSubmit = event => {
     event.preventDefault();
     //! Передача значений State (name, number) в App
+      //* Здесь, вероятно, можно сделать ==> dispatch(addContact({id: nanoid(), name, number}));
+      //* вместо ==> onSubmit(name, number);
     onSubmit(name, number);
     reset(); 
   };
