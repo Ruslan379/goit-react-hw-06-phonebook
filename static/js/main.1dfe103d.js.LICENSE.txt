@@ -98,7 +98,7 @@
 
 //! useState ===> name (аналог this.state.name)
 
-//! Добавление contacts из LocalStorage
+//! Добавление contacts из LocalStorage with redux-persist
 
 //! Передача значений State (name, number) в App
 
