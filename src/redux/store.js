@@ -1,23 +1,22 @@
 import { configureStore } from '@reduxjs/toolkit'
-// import { createAction, createReducer } from '@reduxjs/toolkit' //! Пока не используем
-
+// import { createAction } from '@reduxjs/toolkit' //? УЖЕ не используем
 // import { createReducer } from '@reduxjs/toolkit' //? УЖЕ не используем
 import { combineReducers } from 'redux';
 
 import { createSlice } from '@reduxjs/toolkit'
 
 
-//! +++ Можно импортировать action ТАК (1 вариант)
+//? +++ Можно импортировать action ТАК (1 вариант)
 // import * as action from 'redux/actions'; //? УЖЕ не используем
-
 
 // import { nanoid } from 'nanoid'; //? УЖЕ не используем
 
-//! +++++++++++++++++++++++ ИНИЦИАЛИЗАЦИЯ State ++++++++++++
-//! Модель (проэктирование) State
+//! +++++++++++++++++++++++ ИНИЦИАЛИЗАЦИЯ ВСЕХ частей State ++++++++++++
 const initialItems = [];
 const initialFilter = "";
 
+
+//! Модель (проэктирование) State
 // const allState = {
 //     contacts: {
 //         items: initialItems,
@@ -122,14 +121,7 @@ const filterSlice = createSlice({
 export const { changesFilter } = filterSlice.actions
 
 //! +++++++++++++++++++++ rootReducer  +++++++++++++++++++++
-//? OLD ---
-// const rootReducer = combineReducers({
-//     // contactsReducer, //! OLD
-//     contacts: contactsReducer,
-// });
-
-
-//! w/o createSlice
+//? w/o createSlice
 // const rootReducer = combineReducers({
 //     items: itemsReducer,
 //     filter: filterReducer
@@ -144,19 +136,7 @@ const rootReducer = combineReducers({
 
 
 
-//todo: OLD store +++++++++++++++++++++++++++++++++++++++++
-// const store = createStore(rootReducer, composeWithDevTools()); //? ---
-
-//! NEW store +++++++++++++++++++++++++++++++++++++++++
-//?
-// const store = configureStore({
-//     reducer: {
-//         contacts: contactsReducer
-//     },
-// });
-
-
-
+//! +++++++++++ store +++++++++++++++
 export const store = configureStore({
     reducer: {
         contacts: rootReducer
@@ -169,4 +149,3 @@ export const store = configureStore({
 // console.log("ВЕСЬ State из App store.js ==> store.getState():", store.getState()); //!
 //! ____________________________________________________________________________
 
-// export default store; 
