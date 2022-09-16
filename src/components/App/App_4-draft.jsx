@@ -1,19 +1,46 @@
 import { useEffect } from 'react'; //! +++
 import { useDispatch, useSelector } from "react-redux"; //! +++
 
+// import { useState } from 'react'; //?
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { nanoid } from 'nanoid'; 
+import { nanoid } from 'nanoid'; //?
+
+// import { store } from 'redux/store'; //! Пока не используем
+
+// import useLocalStorage from 'hooks/useLocalStorage'; //?
 
 
+
+//? +++ Можно импортировать action ТАК (1 вариант)
+// import * as action from 'redux/actions'; //! +++ 
+
+//? +++ Можно импортировать action ТАК (2 вариант)
+// import {
+//   AddLocalStorageContacts,
+//   addContact,
+//   changesFilter,
+//   deletesTodo
+// } from 'redux/actions'; //! +++
+
+//? +++ Теперь НАДО импортировать action (with createSlice) ТАК (3 вариант)
+// import {
+//   addLocalStorageContacts,
+//   addContact,
+//   deletesTodo,
+//   changesFilter,
+// } from 'redux/store'; //! +++ 
+
+//! +++ Теперь НАДО импортировать action (with createSlice) ТАК (4 вариант)
 import {
   addLocalStorageContacts,
   addContact,
   deletesTodo
-} from 'redux/itemsSlice'; 
+} from 'redux/itemsSlice'; //! +++ 
 
-import { changesFilter } from 'redux/filterSlice'; 
+import { changesFilter } from 'redux/filterSlice'; //! +++ 
 
 import { Container } from 'components/Container/Container';
 import { ContactForm } from 'components/ContactForm/ContactForm';
@@ -29,17 +56,26 @@ export const App = () => {
   //! +++++++ Хук useDispatch +++++++++++++
   const dispatch = useDispatch();
 
+  //todo:  Действие (actions) ==> Перенесены в 'redux/actions'
+  
 
+  
 
   //! ++++++++++++++++++ Хук useSelector  ++++++++++++++++++
   //! читает данные из state Redux-хранилища и подписывается на их обновление
   const contacts = useSelector(state => state.contacts.items);
   const filter = useSelector(state => state.contacts.filter);
+  // const contacts = useSelector(state => state.rootReducer.contacts.items); //? -+
+  // const filter = useSelector(state => state.rootReducer.contacts.filter); //? -+
+  // console.log("contacts, [items] :", contacts); //!
+  // console.log("filter:", filter); //!
+  //!__________________ Хук useSelector _____________________________
 
 
 
   //! Добавление contacts из LocalStorage
   useEffect(() => {
+    // dispatch(action.AddLocalStorageContacts()); //? OLD
     dispatch(addLocalStorageContacts({ key: "contacts", defaultValue: []}));
   }, [dispatch]);
 
@@ -53,6 +89,7 @@ export const App = () => {
       toast.warning(`${name} уже есть в контактах.`); 
       return;
     } else {
+      // console.log("name, number:", name, number); //!
       dispatch(addContact({id: nanoid(), name, number}));
       }
   };
@@ -79,6 +116,7 @@ export const App = () => {
 
   //! Создание нового массива объектов из this.state.contacts с учетом удаления контакта по его contact.id
   const deleteTodo = contactId => {
+    // console.log("contactId:", contactId); //!
     dispatch(deletesTodo({contactId}));
   };
 
@@ -88,7 +126,10 @@ export const App = () => {
   const totalContacts = contacts.length;
 
 
-
+  //! ++++++++++++++++++++++++++++ ВЕСЬ State ++++++++++++++++++++++++++++++++++
+  // console.log("ВЕСЬ State из App ==> store.getState():", store.getState()); //!
+  //!___________________________________________________________________________
+  
 // * +++++++++++++++++++++++++++ MARKUP ++++++++++++++++++++++++++++++++++
     return (
       <Container>
