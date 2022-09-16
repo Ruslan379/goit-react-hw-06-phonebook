@@ -12,10 +12,8 @@ import { nanoid } from 'nanoid'; //?
 
 // import useLocalStorage from 'hooks/useLocalStorage'; //?
 
-
-
 //! +++ Можно импортировать action ТАК (1 вариант)
-// import * as action from 'redux/actions'; //! +++ 
+import * as action from 'redux/actions'; //! +++ 
 
 //! +++ Можно импортировать action ТАК (2 вариант)
 // import {
@@ -24,14 +22,6 @@ import { nanoid } from 'nanoid'; //?
 //   changesFilter,
 //   deletesTodo
 // } from 'redux/actions'; //! +++
-
-//! +++ Теперь НАДО импортировать action (with createSlice) ТАК (3 вариант)
-import {
-  addLocalStorageContacts,
-  addContact,
-  deletesTodo,
-  changesFilter,
-} from 'redux/store'; //! +++ 
 
 import { Container } from 'components/Container/Container';
 import { ContactForm } from 'components/ContactForm/ContactForm';
@@ -67,7 +57,7 @@ export const App = () => {
   //! Добавление contacts из LocalStorage
   useEffect(() => {
     // dispatch(action.AddLocalStorageContacts()); //? OLD
-    dispatch(addLocalStorageContacts({ key: "contacts", defaultValue: []}));
+    dispatch(action.AddLocalStorageContacts({ key: "contacts", defaultValue: []}));
   }, [dispatch]);
 
 
@@ -81,7 +71,7 @@ export const App = () => {
       return;
     } else {
       // console.log("name, number:", name, number); //!
-      dispatch(addContact({id: nanoid(), name, number}));
+      dispatch(action.addContact({id: nanoid(), name, number}));
       }
   };
 
@@ -90,7 +80,7 @@ export const App = () => {
 //! запись значения из input-(Find contacts by name) в filter
   const changeFilter = (event) => {
     const filterValue = event.currentTarget.value; 
-    dispatch(changesFilter({filterValue}));
+    dispatch(action.changesFilter({filterValue}));
   };
 
 
@@ -108,7 +98,7 @@ export const App = () => {
   //! Создание нового массива объектов из this.state.contacts с учетом удаления контакта по его contact.id
   const deleteTodo = contactId => {
     // console.log("contactId:", contactId); //!
-    dispatch(deletesTodo({contactId}));
+    dispatch(action.deletesTodo({contactId}));
   };
 
 
