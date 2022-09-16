@@ -10,7 +10,7 @@ import { nanoid } from 'nanoid';
 import {
   addLocalStorageContacts,
   addContact,
-  deletesTodo
+  deleteContact
 } from 'redux/itemsSlice'; 
 
 import { changesFilter } from 'redux/filterSlice'; 
@@ -38,10 +38,19 @@ export const App = () => {
 
 
 
-  //! Добавление contacts из LocalStorage
+  //? Добавление contacts из LocalStorage ==> уже не надо с redux-persist
+  // useEffect(() => {
+  //   dispatch(addLocalStorageContacts({ key: "contacts", defaultValue: []}));
+  // }, [dispatch]);
+
+  //! Добавление contacts из LocalStorage with redux-persist
   useEffect(() => {
-    dispatch(addLocalStorageContacts({ key: "contacts", defaultValue: []}));
+    dispatch(addLocalStorageContacts({ key: "persist:items", defaultValue: []}));
   }, [dispatch]);
+
+  // const localStoragePersistItems = JSON.parse(localStorage.getItem("persist:items")) ?? [];
+  // console.log(JSON.parse(localStoragePersistItems.items)); //!
+
 
 
 
@@ -79,7 +88,7 @@ export const App = () => {
 
   //! Создание нового массива объектов из this.state.contacts с учетом удаления контакта по его contact.id
   const deleteTodo = contactId => {
-    dispatch(deletesTodo({contactId}));
+    dispatch(deleteContact({contactId}));
   };
 
 

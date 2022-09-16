@@ -12,7 +12,11 @@ export const itemsSlice = createSlice({
     reducers: {
         addLocalStorageContacts(state, { payload }) {
             const localStorageContacts = JSON.parse(localStorage.getItem(payload.key)) ?? payload.defaultValue;
-            return localStorageContacts;
+            // return localStorageContacts; //? уже не надо с redux-persist
+            // console.log(localStorageContacts.items); //!
+            if (localStorageContacts.items === undefined) return []; //? with redux-persist
+            return JSON.parse(localStorageContacts.items); //? with redux-persist
+
         },
 
         addContact(state, { payload }) {
@@ -22,17 +26,17 @@ export const itemsSlice = createSlice({
                 number: payload.number,
             };
             const localStorageAddContacts = [...state, contact]
-            localStorage.setItem("contacts", JSON.stringify(localStorageAddContacts))
+            // localStorage.setItem("contacts", JSON.stringify(localStorageAddContacts)) //? уже не надо с redux-persist
             return localStorageAddContacts;
         },
 
-        deletesTodo(state, { payload }) {
+        deleteContact(state, { payload }) {
             const id = payload.contactId;
             const newContact = state.filter(contact => contact.id !== id)
-            localStorage.setItem("contacts", JSON.stringify(newContact))
+            // localStorage.setItem("contacts", JSON.stringify(newContact)) //? уже не надо с redux-persist
             return newContact;
         },
     }
 });
 
-export const { addLocalStorageContacts, addContact, deletesTodo } = itemsSlice.actions
+export const { addLocalStorageContacts, addContact, deleteContact } = itemsSlice.actions
