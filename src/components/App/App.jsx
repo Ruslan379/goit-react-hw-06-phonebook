@@ -14,10 +14,10 @@ import { nanoid } from 'nanoid'; //?
 
 
 
-//! +++ Можно импортировать action ТАК (1 вариант)
+//? +++ Можно импортировать action ТАК (1 вариант)
 // import * as action from 'redux/actions'; //! +++ 
 
-//! +++ Можно импортировать action ТАК (2 вариант)
+//? +++ Можно импортировать action ТАК (2 вариант)
 // import {
 //   AddLocalStorageContacts,
 //   addContact,
@@ -25,13 +25,22 @@ import { nanoid } from 'nanoid'; //?
 //   deletesTodo
 // } from 'redux/actions'; //! +++
 
-//! +++ Теперь НАДО импортировать action (with createSlice) ТАК (3 вариант)
+//? +++ Теперь НАДО импортировать action (with createSlice) ТАК (3 вариант)
+// import {
+//   addLocalStorageContacts,
+//   addContact,
+//   deletesTodo,
+//   changesFilter,
+// } from 'redux/store'; //! +++ 
+
+//! +++ Теперь НАДО импортировать action (with createSlice) ТАК (4 вариант)
 import {
   addLocalStorageContacts,
   addContact,
-  deletesTodo,
-  changesFilter,
-} from 'redux/store'; //! +++ 
+  deletesTodo
+} from 'redux/itemsSlice'; //! +++ 
+
+import { changesFilter } from 'redux/filterSlice'; //! +++ 
 
 import { Container } from 'components/Container/Container';
 import { ContactForm } from 'components/ContactForm/ContactForm';
