@@ -1,4 +1,4 @@
-import { useEffect } from 'react'; //! +++
+// import { useEffect } from 'react'; //? уже не надо с redux-persist
 import { useDispatch, useSelector } from "react-redux"; //! +++
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -8,7 +8,7 @@ import { nanoid } from 'nanoid';
 
 
 import {
-  addLocalStorageContacts,
+  // addLocalStorageContacts, //? уже не надо с redux-persist
   addContact,
   deleteContact
 } from 'redux/itemsSlice'; 
@@ -43,10 +43,11 @@ export const App = () => {
   //   dispatch(addLocalStorageContacts({ key: "contacts", defaultValue: []}));
   // }, [dispatch]);
 
+  //? уже не надо с redux-persist
   //! Добавление contacts из LocalStorage with redux-persist
-  useEffect(() => {
-    dispatch(addLocalStorageContacts({ key: "persist:items", defaultValue: []}));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(addLocalStorageContacts({ key: "persist:items", defaultValue: []}));
+  // }, [dispatch]);
 
   // const localStoragePersistItems = JSON.parse(localStorage.getItem("persist:items")) ?? [];
   // console.log(JSON.parse(localStoragePersistItems.items)); //!
@@ -103,7 +104,7 @@ export const App = () => {
       <Container>
         <ToastContainer autoClose={1000} />
 
-        <h1>Phonebook (HW-6)</h1>
+        <h1>Phonebook HW-6<span style={{ fontSize: "20px" }}> (with Redux-Persist)</span></h1>
 
         <ContactForm onSubmit={formSubmitHandler} />
 
