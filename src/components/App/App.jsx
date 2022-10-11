@@ -59,12 +59,13 @@ export const App = () => {
   //! alert с предупреждением о наявности контакта
   //!  Добавление контакта в Действия (actions) ==> 
   const formSubmitHandler = (name, number) => {
-    if (contacts.find(item => item.name.toLowerCase() === name.toLowerCase())) {
+    if (
+      contacts.find(item => item.name.toLowerCase() === name.toLowerCase())
+    ) {
       toast.warning(`${name} уже есть в контактах.`); 
       return;
-    } else {
-      dispatch(addContact({id: nanoid(), name, number}));
-      }
+    }
+    dispatch(addContact({id: nanoid(), name, number}));
   };
 
 
@@ -88,7 +89,7 @@ export const App = () => {
 
 
   //! Создание нового массива объектов из this.state.contacts с учетом удаления контакта по его contact.id
-  const deleteTodo = contactId => {
+  const onDeleteContact = contactId => {
     dispatch(deleteContact({contactId}));
   };
 
@@ -102,7 +103,6 @@ export const App = () => {
 // * +++++++++++++++++++++++++++ MARKUP ++++++++++++++++++++++++++++++++++
     return (
       <Container>
-        <ToastContainer autoClose={1000} />
 
         <h1>Phonebook HW-6<span style={{ fontSize: "20px" }}> (with Redux-Persist)</span></h1>
 
@@ -111,15 +111,22 @@ export const App = () => {
         <h2>Contacts</h2>
         <p>Total: {totalContacts}</p>
 
-        <Filter
-          value={filter}
-          onChange={changeFilter}
-        />
+        {contacts.length > 0 && (
+          <>
+            <Filter
+              value={filter}
+              onChange={changeFilter}
+            />
+            
+            <ContactList
+              visibleContacts={visibleContacts}
+              onDeleteContact ={onDeleteContact}
+            />
+          </>
+        )}
         
-        <ContactList
-          visibleContacts={visibleContacts}
-          onDeleteTodo={deleteTodo}
-        />
+        <ToastContainer autoClose={1000} />
+
       </Container>
     );
   }
