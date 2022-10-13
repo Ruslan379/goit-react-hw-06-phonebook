@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"; //! +++
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { nanoid } from 'nanoid'; 
+// import { nanoid } from 'nanoid'; 
 
 
 import {
@@ -65,7 +65,8 @@ export const App = () => {
       toast.warning(`${name} уже есть в контактах.`); 
       return;
     }
-    dispatch(addContact({id: nanoid(), name, number}));
+    // dispatch(addContact({ id: nanoid(), name, number }));
+    dispatch(addContact({name, number}));
   };
 
 
